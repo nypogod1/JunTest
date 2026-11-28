@@ -56,9 +56,6 @@ def test_cancel_frees_slot_and_404():
     assert cancelled.status_code == 200
     assert cancelled.json()["status"] == "cancelled"
 
-    # slot is free again
     again = client.post("/bookings", json=payload)
     assert again.status_code == 201
-
-    # unknown id -> 404
     assert client.get("/bookings/999999").status_code == 404
